@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a173194-6694-4084-896c-06606f7016a4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/envs/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/envs/environment.yml" afterDir="false" />
+    <list default="true" id="2a173194-6694-4084-896c-06606f7016a4" name="Changes" comment="initialise django">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +54,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -99,12 +99,36 @@
       <option name="presentableId" value="Default" />
       <updated>1745064898075</updated>
       <workItem from="1745064899229" duration="1342000" />
-      <workItem from="1745066630894" duration="3499000" />
+      <workItem from="1745066630894" duration="4756000" />
     </task>
+    <task id="LOCAL-00001" summary="initialise django">
+      <option name="closed" value="true" />
+      <created>1745072173111</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745072173111</updated>
+    </task>
+    <task id="LOCAL-00002" summary="initialise django">
+      <option name="closed" value="true" />
+      <created>1745073317716</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745073317716</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT_PROFILE" value="Project Default" />
+    <MESSAGE value="initialise django" />
+    <option name="LAST_COMMIT_MESSAGE" value="initialise django" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
