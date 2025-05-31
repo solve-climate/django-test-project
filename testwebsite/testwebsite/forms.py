@@ -3,7 +3,6 @@ from .models import Profile, ProblemProposal, Solution
 
 ## Creating a form
 
-
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
