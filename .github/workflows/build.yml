@@ -23,7 +23,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        $CONDA/bin/conda env update --file envs/environment.yml --name base
+        $CONDA/bin/conda env create --file environment.yml
     - name: Lint with flake8
       run: |
         conda install flake8
