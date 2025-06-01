@@ -25,7 +25,8 @@ jobs:
           activate-environment: solve-climate
           environment-file: envs/environment.yml
           python-version: ${{ matrix.python-version }}
-          channels: conda-forge
+          channels: conda-forge,defaults
+          channel-priority: strict
           
     - name: Lint with flake8
       run: |
