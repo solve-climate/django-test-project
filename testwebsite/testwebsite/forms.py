@@ -1,12 +1,9 @@
 from django import forms
+
 from .models import Profile, ProblemProposal, Solution
 
-## Creating a form
 
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['bio']
+## Creating a form
 
 class ProblemProposalForm(forms.ModelForm):
     class Meta:
