@@ -1,71 +1,93 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .models import Profile, Team
 from .forms import ProfileForm, SolutionForm
+import uuid
 
 
 def index(request):
-    return HttpResponse("You're at the solve climate index.")
+    return JsonResponse({'message': "You're at the solve climate index."})
 
 
 @login_required
 def dashboard(request):
-    profile = request.user.profile
-    if profile.team:
-        return JsonResponse({'message': 'Redirecting to team dashboard'})
-    return JsonResponse({'message': 'Redirecting to create team'})
+    try:
+        profile = request.user.profile
+        if profile.team:
+            return JsonResponse({'message': 'Redirecting to team dashboard'})
+        return JsonResponse({'message': 'Redirecting to create team'})
+    except Profile.DoesNotExist:
+        return JsonResponse({'error': 'Profile not found'}, status=404)
 
 
 @login_required
 def edit_profile(request):
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        return JsonResponse({'error': 'Profile not found'}, status=404)
+
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user.profile)
+        form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
             return JsonResponse({'message': 'Profile updated successfully'})
         return JsonResponse({'errors': form.errors}, status=400)
-    
-    # For GET requests, return current profile data
-    profile = request.user.profile
+
+    # GET request — return profile data
     return JsonResponse({
-        'name': profile.name,
-        'email': profile.email,
+        'name': getattr(profile, 'name', ''),
+        'email': request.user.email,
         'team': profile.team.name if profile.team else None,
     })
 
 
 @login_required
 def create_team(request):
-    team, created = Team.objects.get_or_create(name="Random Team")
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        return JsonResponse({'error': 'Profile not found'}, status=404)
+
+    # Create a unique team name
+    team_name = f"Team-{uuid.uuid4().hex[:6]}"
+    team = Team.objects.create(name=team_name)
     team.members.add(request.user)
-    profile = request.user.profile
+
     profile.team = team
     profile.save()
-    return JsonResponse({'message': f'Team {"created" if created else "joined"}: {team.name}'})
+
+    return JsonResponse({'message': f'Team created: {team.name}'})
 
 
 @login_required
 def team_dashboard(request):
-    team = request.user.profile.team
-    if not team:
-        return JsonResponse({'error': 'No team found.'}, status=400)
+    try:
+        profile = request.user.profile
+        team = profile.team
+        if not team:
+            return JsonResponse({'error': 'No team found.'}, status=400)
 
-    members = list(team.members.values('username', 'email'))
-    return JsonResponse({
-        'team_name': team.name,
-        'members': members
-    })
+        members = list(team.members.values('username', 'email'))
+        return JsonResponse({
+            'team_name': team.name,
+            'members': members
+        })
+    except Profile.DoesNotExist:
+        return JsonResponse({'error': 'Profile not found'}, status=404)
 
 
+@require_POST
 @login_required
 def submit_solution(request):
-    if request.method == 'POST':
+    try:
         form = SolutionForm(request.POST)
         if form.is_valid():
             solution = form.save(commit=False)
             solution.user = request.user
             solution.save()
-            return JsonResponse({'message': 'Solution submitted'})
+            return JsonResponse({'message': 'Solution submitted successfully'})
         return JsonResponse({'errors': form.errors}, status=400)
-
-    return JsonResponse({'error': 'Only POST method allowed'}, status=405)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
