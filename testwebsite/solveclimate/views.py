@@ -1,7 +1,8 @@
-from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Team
-from .forms import ProfileForm, SolutionForm
+from django.http import HttpResponse, JsonResponse
+
+from .forms import SolutionForm
+from .models import Team
 
 
 def index(request):
@@ -16,22 +17,22 @@ def dashboard(request):
     return JsonResponse({'message': 'Redirecting to create team'})
 
 
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'message': 'Profile updated successfully'})
-        return JsonResponse({'errors': form.errors}, status=400)
-    
-    # For GET requests, return current profile data
-    profile = request.user.profile
-    return JsonResponse({
-        'name': profile.name,
-        'email': profile.email,
-        'team': profile.team.name if profile.team else None,
-    })
+# @login_required
+# def edit_profile(request):
+#     if request.method == 'POST':
+#         form = ProfileForm(request.POST, instance=request.user.profile)
+#         if form.is_valid():
+#             form.save()
+#             return JsonResponse({'message': 'Profile updated successfully'})
+#         return JsonResponse({'errors': form.errors}, status=400)
+#
+#     # For GET requests, return current profile data
+#     profile = request.user.profile
+#     return JsonResponse({
+#         'name': profile.name,
+#         'email': profile.email,
+#         'team': profile.team.name if profile.team else None,
+#     })
 
 
 @login_required
