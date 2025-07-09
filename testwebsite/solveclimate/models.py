@@ -1,5 +1,3 @@
-# Create your models here.
-
 from django.db import models
 
 
@@ -62,3 +60,13 @@ class Participant(models.Model):
         return ('id: ' + str(self.id)
                 + ', user id: ' + str(self.user)
                 + ', team id: ' + str(self.team))
+
+
+class Solution(models.Model):
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+    description = models.TextField()
+
+    def __str__(self) -> str:
+        return ('id: ' + str(self.id)
+                + ', problem id ' + str(self.problem)
+                + ', description: ' + str(self.description))
