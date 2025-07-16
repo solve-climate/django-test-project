@@ -1,12 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 
 from .forms import SolutionForm
 from .models import Team
-
-
-def index(request):
-    return HttpResponse("You're at the solve climate index.")
 
 
 @login_required
