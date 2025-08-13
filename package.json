@@ -1,0 +1,26 @@
+{
+  "name": "django-test-project",
+  "version": "1.0.0",
+  "description": "This is a sandbox for the Solve Climate platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:css": "npx @tailwindcss/cli -i testwebsite/static/css/input.css -o ./testwebsite/static/css/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solve-climate/django-test-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/solve-climate/django-test-project/issues"
+  },
+  "homepage": "https://github.com/solve-climate/django-test-project#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "flyonui": "^2.4.0",
+    "tailwindcss": "^4.1.11"
+  }
+}

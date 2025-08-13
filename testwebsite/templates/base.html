@@ -1,9 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}"/>
+    <script src="{% static 'js/flyonui.js' %}"></script>
+
+
 </head>
 
 <body>
@@ -11,6 +16,7 @@
     {% block content %}
     {% endblock %}
 </main>
+<script src="{% static 'js/flyonui.js' %}"></script>
 </body>
 
 </html>
