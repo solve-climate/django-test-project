@@ -20,6 +20,8 @@ Install [Conda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](ht
 
 ### Step 1: Create Python Environment
 
+#### Windows
+
 Create a new conda environment with the required packages:
 
 ```bash
@@ -36,7 +38,13 @@ pip install sqlparse
 pip install django-browser-reload
 ```
 
-**Note**: The `envs/environment.yml` file is currently outdated, so manual installation is required.
+#### Linux/Mac
+
+```bash
+conda env create -n solve-climate-test-env -f envs/environment.yml
+```
+
+**Note**: The `envs/environment.yml` file is currently not compatible with Windows, so manual installation is required if you using a windows computer.
 
 ### Step 2: Install Node.js Dependencies
 
