@@ -1,37 +1,5 @@
+from django.contrib.auth.models import User
 from django.db import models
-
-
-class User(models.Model):
-    is_admin = models.BooleanField(default=False)
-
-    def __str__(self):
-        return ('id: ' + str(self.id)
-                + ' ' + str(self.get_admin_status()))
-
-    def get_admin_status(self) -> str:
-        if self.is_admin:
-            return 'admin'
-        else:
-            return 'non-admin'
-
-
-class UserDetails(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    date_joined = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return ('id: ' + str(self.id)
-                + ', name: ' + self.name
-                + ', date joined: ' + str(self.date_joined)
-                + ', activity status: ' + self.get_activity_status__())
-
-    def get_activity_status__(self) -> str:
-        if self.is_active:
-            return 'active'
-        else:
-            return 'inactive'
 
 
 class Problem(models.Model):
@@ -42,6 +10,14 @@ class Problem(models.Model):
         return ('id: ' + str(self.id)
                 + ', event_date: ' + str(self.event_date)
                 + ', statement: ' + self.statement)
+
+
+class UserProfile(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    interests = models.TextField()
+
+    def __str__(self):
+        return "interests: " + self.interests
 
 
 class Team(models.Model):

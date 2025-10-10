@@ -1,9 +1,29 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.http import JsonResponse
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.views.generic.list import ListView
 
-from .forms import SolutionForm
-from .models import Team
+from .forms import SolutionForm, UserProfileForm
+from .models import Team, UserProfile
 
+
+class User_Profile_Edit_View(CreateView):
+    form_class = UserProfileForm
+    success_url = reverse_lazy("login")
+    template_name = "solveclimate/edit_user_profile.html"
+
+
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
+
+
+class User_Profile(ListView):
+    model = UserProfile
+    template_name = "solveclimate/user_profile.html"
 
 @login_required
 def dashboard(request):
