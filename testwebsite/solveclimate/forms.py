@@ -1,12 +1,14 @@
 from django import forms
 
-from .models import Problem, Solution
+from .models import Problem, Solution, UserProfile
 
 
-class UserProfileForm(forms.Form):
-    interests = forms.TimeField
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['interests']
 
-    s
+
 
 
 class ProblemProposalForm(forms.ModelForm):

@@ -13,11 +13,12 @@ class Problem(models.Model):
 
 
 class UserProfile(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     interests = models.TextField()
 
     def __str__(self):
-        return "interests: " + self.interests
+        return ('id: ' + str(self.id)
+                + ', problem id: ' + str(self.problem))
 
 
 class Team(models.Model):
