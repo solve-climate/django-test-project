@@ -1,27 +1,28 @@
 {% extends "base.html" %}
 
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-        <p class="text-blue-600 text-5xl">Hi {{ user.username }}!</p>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <div class="tooltip">
-                <button type="submit" class="tooltip-toggle btn" >
-                    log out
-                </button>
-                <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+{% if user.is_authenticated %}
+<p class="text-blue-600 text-5xl">Hi {{ user.username }}!</p>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <div class="tooltip">
+        <button type="submit" class="tooltip-toggle btn">
+            log out
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
     <span class="tooltip-body">Tooltip on top</span>
   </span>
-            </div>
+    </div>
 
-        </form>
-        <div class="divider divider-neutral"></div>
+</form>
+<div class="divider divider-neutral"></div>
 
-    {% else %}
-        <p class="text-red-600">You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a>
-    {% endif %}
+{% else %}
+<p class="text-red-600">You are not logged in</p>
+<a href="{% url 'login' %}">Log In</a>
+<p class="text-red-600"><a href="{% url 'signup' %}">Sign up</a></p>
+
+{% endif %}
 {% endblock %}

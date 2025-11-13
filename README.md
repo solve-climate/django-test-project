@@ -88,11 +88,18 @@ cd testwebsite
 python manage.py runserver
 ```
 
+This will launch the web server at http://127.0.0.1:8000/.
+
 ### Step 5: Access the Application
 
-Once both services are running:
-- **Main Application**: http://127.0.0.1:8000/
-- **Admin Panel**: http://127.0.0.1:8000/admin/ (use your superuser credentials)
+The following urls have been created so far:
+
+Website homepage: http://127.0.0.1:8000/  
+Password change: http://127.0.0.1:8000/accounts/password_change/  
+Login: http://127.0.0.1:8000/accounts/login/  
+User registration: http://127.0.0.1:8000/accounts/signup/
+
+Website administration: http://127.0.0.1:8000/admin  (use your superuser credentials)
 
 ## Quick Start (Subsequent Times)
 
