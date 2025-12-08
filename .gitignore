@@ -5,6 +5,19 @@ __pycache__/
 
 #IDE stuff
 .idea/*
+CLAUDE.md
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+.pnp.*
+
+# Generated CSS files
+testwebsite/static/css/output.css
 
 # C extensions
 *.so
