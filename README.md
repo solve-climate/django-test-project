@@ -1,144 +1,106 @@
-# Django Test Project
+# Solve Climate - Homepage
 
-This is a sandbox for the Solve Climate platform - a development environment for building climate-related solutions with user authentication and team management.
+A single-page website for the Solve Climate community, built with [FastHTML](https://fastht.ml/) and [DaisyUI](https://daisyui.com/) (Tailwind CSS).
 
 ## Prerequisites
 
-Before setting up the project, you'll need:
+- Python 3.10+
+- pip
 
-### 1. Node.js
-Download and install Node.js v22.18.0. You have two options:
-- **Option A**: Download directly from [nodejs.org](https://nodejs.org/)
-- **Option B**: Use a Node Version Manager ([installation guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/))
+## Setup
 
-**💡 Tip**: We recommend using a Node Version Manager as different projects may require different Node.js versions.
-
-### 2. Conda
-Install [Conda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/) for Python environment management.
-
-## Setup Instructions
-
-### Step 1: Create Python Environment
-
-#### Windows
-
-Create a new conda environment with the required packages:
+### 1. Clone the repository
 
 ```bash
-# Create environment
-conda create -n solve-climate-test-env python=3.13 
-
-# Activate environment  
-conda activate solve-climate-test-env
-
-# Install Python packages
-pip install django
-pip install asgiref
-pip install sqlparse
-pip install django-browser-reload
+git clone <repo-url>
+cd solve-climate
 ```
 
-#### Linux/Mac
+### 2. Create and activate a virtual environment
 
 ```bash
-conda env create -n solve-climate-test-env -f envs/environment.yml
+python -m venv .venv
+source .venv/bin/activate
 ```
 
-**Note**: The `envs/environment.yml` file is currently not compatible with Windows, so manual installation is required if you using a windows computer.
-
-### Step 2: Install Node.js Dependencies
+On Windows:
 
 ```bash
-# Install npm packages
-npm install
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
-### Step 3: Setup Database
-
-Navigate to the Django project directory and set up the database:
+### 3. Install dependencies
 
 ```bash
-cd testwebsite
-
-# Create database migrations
-python manage.py makemigrations
-
-# Apply migrations
-python manage.py migrate
-
-# Create a superuser account (optional but recommended)
-python manage.py createsuperuser
+pip install python-fasthtml
 ```
 
-### Step 4: Start Development Services
+## Running the website
 
-You'll need to run two processes simultaneously:
-
-**Terminal 1** - Start CSS watch process (for Tailwind CSS):
 ```bash
-npm run watch:css
+python app.py
 ```
 
-**Terminal 2** - Start Django development server:
-```bash
-# Make sure you're in the testwebsite directory
-cd testwebsite
+The site will be available at `http://localhost:5001`.
 
-# Start the server
-python manage.py runserver
+## Project structure
+
+```
+.
+├── app.py          # Main application - all routes, components, and styling
+├── README.md       # This file
+└── .venv/          # Virtual environment (not committed)
 ```
 
-This will launch the web server at http://127.0.0.1:8000/.
+## How the app is organized
 
-### Step 5: Access the Application
+`app.py` contains everything in one file:
 
-The following urls have been created so far:
+1. **Headers & theme** - DaisyUI and Tailwind CDN imports, plus a custom dark theme defined via CSS variables (oklch colors)
+2. **Icons** - Inline SVG icons (lightbulb, slack, calendar, mailbox) using Lucide icon paths
+3. **Form components** - Email input with validation and a message textarea
+4. **Sections** - Five "hero" sections that stack vertically:
+    - `hero` - Welcome message with a "Get Started" button
+    - `hero2` - "The idea" section with lightbulb icon
+    - `hero3` - "The platform we use" with Slack link
+    - `hero4` - "When is the next solvaton?" with calendar icon
+    - `hero5` - Contact form with email input, textarea, and send button
+5. **Route** - A single `/` route that returns all sections combined
 
-Website homepage: http://127.0.0.1:8000/  
-Password change: http://127.0.0.1:8000/accounts/password_change/  
-Login: http://127.0.0.1:8000/accounts/login/  
-User registration: http://127.0.0.1:8000/accounts/signup/
+## Making changes
 
-Website administration: http://127.0.0.1:8000/admin  (use your superuser credentials)
+### Editing text content
 
-## Quick Start (Subsequent Times)
+Each section has a `title` and `text` variable near the section definition. Update those strings to change the content.
 
-After your initial setup is complete, starting the project on subsequent occasions only requires these steps:
+### Changing colors
 
-### For Daily Development
+The theme is defined in the `custom_theme` `Style()` block at the top of `app.py`. Colors use the [oklch](https://oklch.com/) color space. Key variables:
 
-1. **Activate your conda environment:**
-   ```bash
-   conda activate solve-climate-test-env
-   ```
+- `--color-primary` - Main accent color (buttons, highlights)
+- `--color-secondary` - Secondary accent
+- `--color-base-100` / `200` / `300` - Background shades (darkest to lightest)
+- `--color-base-content` - Text color
 
-2. **Start both development services:**
-   
-   **Terminal 1** - CSS watch process:
-   ```bash
-   npm run watch:css
-   ```
-   
-   **Terminal 2** - Django server:
-   ```bash
-   cd testwebsite
-   python manage.py runserver
-   ```
+See [DaisyUI theming docs](https://daisyui.com/docs/themes/) for the full list.
 
-3. **Access the application at:** http://127.0.0.1:8000/
+### Adding a new section
 
-### Only Run These When Needed
+1. Define a new `heroN` div using the same pattern as existing sections
+2. Add it to the `Div(hero, hero2, ...)` return in the `home()` function
 
-- **Database migrations** (only if models changed):
-  ```bash
-  cd testwebsite
-  python manage.py makemigrations
-  python manage.py migrate
-  ```
+## Troubleshooting
 
-- **Install new dependencies** (only if package.json or requirements change):
-  ```bash
-  npm install  # For new Node packages
-  pip install <package-name>  # For new Python packages
-  ```
+**Port already in use**: Change the port by adding `port=8000` to the `serve()` call at the bottom of `app.py`.
 
+**Styles not loading**: Make sure you have an internet connection — DaisyUI and Tailwind are loaded from CDN.
+
+**Changes not showing**: Hard refresh your browser (Ctrl+Shift+R / Cmd+Shift+R).
+
+## Tech stack
+
+- [FastHTML](https://fastht.ml/) - Python web framework
+- [DaisyUI 5](https://daisyui.com/) - Tailwind CSS component library
+- [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS framework
+- [Lucide Icons](https://lucide.dev/) - SVG icon set (inline)
